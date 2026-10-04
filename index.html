@@ -8,7 +8,6 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <style>
@@ -39,9 +38,7 @@ body{
     overflow-x:hidden;
 }
 
-/* =========================
-   TOP BAR
-========================= */
+/* TOP BAR */
 
 .top-bar{
     position:fixed;
@@ -73,9 +70,7 @@ body{
     color:#887a6e;
 }
 
-/* =========================
-   HERO
-========================= */
+/* HERO */
 
 .hero{
     min-height:100vh;
@@ -174,9 +169,7 @@ body{
     transform:translateY(-3px);
 }
 
-/* =========================
-   GALLERY
-========================= */
+/* GALLERY */
 
 .gallery-section{
     padding:120px 7% 150px;
@@ -213,18 +206,14 @@ body{
     color:#776b61;
 }
 
-/* =========================
-   PHOTO WALL
-========================= */
+/* PHOTO WALL */
 
 .photo-wall{
     max-width:1100px;
     margin:auto;
-
     display:grid;
     grid-template-columns:repeat(12,1fr);
     gap:35px;
-
     align-items:center;
 }
 
@@ -266,8 +255,6 @@ body{
         0 4px 8px rgba(45,37,31,.08);
 }
 
-/* Photo sizes */
-
 .photo1{
     grid-column:1 / 6;
     height:480px;
@@ -306,22 +293,17 @@ body{
     transform:rotate(-1.5deg);
 }
 
-/* Number */
-
 .photo-number{
     position:absolute;
     bottom:-28px;
     left:50%;
     transform:translateX(-50%);
-
     font-family:"Cormorant Garamond",serif;
     font-size:18px;
     color:#887a6e;
 }
 
-/* =========================
-   VIDEO SECTION
-========================= */
+/* VIDEOS */
 
 .video-section{
     padding:140px 7%;
@@ -331,7 +313,6 @@ body{
 .video-grid{
     max-width:1100px;
     margin:auto;
-
     display:grid;
     grid-template-columns:1fr 1fr;
     gap:30px;
@@ -351,9 +332,7 @@ body{
     background:#161311;
 }
 
-/* =========================
-   NOTE
-========================= */
+/* NOTE */
 
 .note-section{
     padding:150px 7%;
@@ -381,7 +360,6 @@ body{
     top:25px;
     left:50%;
     transform:translateX(-50%);
-
     font-family:"Cormorant Garamond",serif;
     font-size:80px;
     color:rgba(167,139,97,.25);
@@ -410,9 +388,7 @@ body{
     color:#5e5148;
 }
 
-/* =========================
-   ENDING
-========================= */
+/* ENDING */
 
 .ending{
     min-height:55vh;
@@ -448,16 +424,12 @@ body{
     letter-spacing:1px;
 }
 
-/* =========================
-   LIGHTBOX
-========================= */
+/* LIGHTBOX */
 
 .lightbox{
     position:fixed;
     inset:0;
-
     background:rgba(20,17,15,.95);
-
     z-index:300;
 
     display:flex;
@@ -480,11 +452,8 @@ body{
 .lightbox-image{
     max-width:90vw;
     max-height:85vh;
-
     object-fit:contain;
-
     box-shadow:0 30px 100px rgba(0,0,0,.5);
-
     transform:scale(.94);
     transition:.4s ease;
 }
@@ -505,13 +474,10 @@ body{
     background:transparent;
 
     color:white;
-
     border-radius:50%;
 
     font-size:25px;
-
     cursor:pointer;
-
     z-index:5;
 }
 
@@ -519,18 +485,14 @@ body{
     position:absolute;
     top:35px;
     left:50%;
-
     transform:translateX(-50%);
-
     color:#ddd;
-
     font-size:11px;
     letter-spacing:3px;
 }
 
 .lightbox-arrow{
     position:absolute;
-
     top:50%;
     transform:translateY(-50%);
 
@@ -543,11 +505,8 @@ body{
     border:1px solid rgba(255,255,255,.2);
 
     color:white;
-
     font-size:25px;
-
     cursor:pointer;
-
     transition:.3s ease;
 }
 
@@ -563,13 +522,10 @@ body{
     right:30px;
 }
 
-/* =========================
-   MUSIC BUTTON
-========================= */
+/* MUSIC */
 
 .music-button{
     position:fixed;
-
     right:25px;
     bottom:25px;
 
@@ -638,9 +594,7 @@ body{
 
 }
 
-/* =========================
-   MOBILE
-========================= */
+/* MOBILE */
 
 @media(max-width:800px){
 
@@ -808,21 +762,17 @@ body{
 <body>
 
 
-<!-- =========================
-     MUSIC
-========================= -->
+<!-- MUSIC -->
 
 <audio
     id="backgroundMusic"
-    src="images/song.mp3"
+    src="song.mp3"
     loop
     preload="auto">
 </audio>
 
 
-<!-- =========================
-     TOP BAR
-========================= -->
+<!-- TOP BAR -->
 
 <header class="top-bar">
 
@@ -837,9 +787,7 @@ body{
 </header>
 
 
-<!-- =========================
-     HERO
-========================= -->
+<!-- HERO -->
 
 <section class="hero">
 
@@ -869,9 +817,7 @@ body{
 </section>
 
 
-<!-- =========================
-     GALLERY
-========================= -->
+<!-- GALLERY -->
 
 <section class="gallery-section" id="gallery">
 
@@ -901,15 +847,13 @@ body{
     <div class="photo-wall">
 
 
-        <!-- PHOTO 1 -->
-
         <div
             class="photo-frame photo1"
             onclick="openLightbox(0)"
         >
 
             <img
-                src="images/1.jpg"
+                src="1.jpg"
                 alt="Memory 01"
             >
 
@@ -920,15 +864,13 @@ body{
         </div>
 
 
-        <!-- PHOTO 2 -->
-
         <div
             class="photo-frame photo2"
             onclick="openLightbox(1)"
         >
 
             <img
-                src="images/2.jpg"
+                src="2.jpg"
                 alt="Memory 02"
             >
 
@@ -939,15 +881,13 @@ body{
         </div>
 
 
-        <!-- PHOTO 3 -->
-
         <div
             class="photo-frame photo3"
             onclick="openLightbox(2)"
         >
 
             <img
-                src="images/3.jpg"
+                src="3.jpg"
                 alt="Memory 03"
             >
 
@@ -958,15 +898,13 @@ body{
         </div>
 
 
-        <!-- PHOTO 4 -->
-
         <div
             class="photo-frame photo4"
             onclick="openLightbox(3)"
         >
 
             <img
-                src="images/4.jpg"
+                src="4.jpg"
                 alt="Memory 04"
             >
 
@@ -977,15 +915,13 @@ body{
         </div>
 
 
-        <!-- PHOTO 5 -->
-
         <div
             class="photo-frame photo5"
             onclick="openLightbox(4)"
         >
 
             <img
-                src="images/5.jpg"
+                src="5.jpg"
                 alt="Memory 05"
             >
 
@@ -996,15 +932,13 @@ body{
         </div>
 
 
-        <!-- PHOTO 6 -->
-
         <div
             class="photo-frame photo6"
             onclick="openLightbox(5)"
         >
 
             <img
-                src="images/6.jpg"
+                src="6.jpg"
                 alt="Memory 06"
             >
 
@@ -1020,9 +954,7 @@ body{
 </section>
 
 
-<!-- =========================
-     VIDEOS
-========================= -->
+<!-- VIDEOS -->
 
 <section class="video-section">
 
@@ -1038,11 +970,9 @@ body{
             >
 
                 <source
-                    src="images/video1.mp4"
+                    src="video1.mp4"
                     type="video/mp4"
                 >
-
-                Your browser does not support video.
 
             </video>
 
@@ -1058,11 +988,9 @@ body{
             >
 
                 <source
-                    src="images/video2.mp4"
+                    src="video2.mp4"
                     type="video/mp4"
                 >
-
-                Your browser does not support video.
 
             </video>
 
@@ -1074,9 +1002,7 @@ body{
 </section>
 
 
-<!-- =========================
-     NOTE
-========================= -->
+<!-- NOTE -->
 
 <section class="note-section">
 
@@ -1101,9 +1027,7 @@ body{
 </section>
 
 
-<!-- =========================
-     ENDING
-========================= -->
+<!-- ENDING -->
 
 <section class="ending">
 
@@ -1127,16 +1051,13 @@ body{
 </section>
 
 
-<!-- =========================
-     LIGHTBOX
-========================= -->
+<!-- LIGHTBOX -->
 
 <div
     class="lightbox"
     id="lightbox"
     onclick="closeOutside(event)"
 >
-
 
     <button
         class="close-lightbox"
@@ -1146,14 +1067,12 @@ body{
         ×
     </button>
 
-
     <div
         class="lightbox-counter"
         id="lightboxCounter"
     >
         01 / 06
     </div>
-
 
     <button
         class="lightbox-arrow prev"
@@ -1163,14 +1082,12 @@ body{
         ‹
     </button>
 
-
     <img
         id="lightboxImage"
         class="lightbox-image"
         src=""
         alt="Memory"
     >
-
 
     <button
         class="lightbox-arrow next"
@@ -1180,13 +1097,10 @@ body{
         ›
     </button>
 
-
 </div>
 
 
-<!-- =========================
-     MUSIC BUTTON
-========================= -->
+<!-- MUSIC BUTTON -->
 
 <button
     class="music-button"
@@ -1207,27 +1121,23 @@ body{
 
 <script>
 
-/* =========================
-   IMAGES
-========================= */
+/* IMAGES */
 
 const images = [
 
-    "images/1.jpg",
-    "images/2.jpg",
-    "images/3.jpg",
-    "images/4.jpg",
-    "images/5.jpg",
-    "images/6.jpg"
+    "1.jpg",
+    "2.jpg",
+    "3.jpg",
+    "4.jpg",
+    "5.jpg",
+    "6.jpg"
 
 ];
 
 let currentImage = 0;
 
 
-/* =========================
-   LIGHTBOX
-========================= */
+/* LIGHTBOX */
 
 const lightbox =
     document.getElementById("lightbox");
@@ -1327,9 +1237,7 @@ function previousImage(event){
 }
 
 
-/* =========================
-   KEYBOARD
-========================= */
+/* KEYBOARD */
 
 document.addEventListener(
     "keydown",
@@ -1340,30 +1248,22 @@ document.addEventListener(
         }
 
         if(event.key === "Escape"){
-
             closeLightbox();
-
         }
 
         if(event.key === "ArrowRight"){
-
             nextImage();
-
         }
 
         if(event.key === "ArrowLeft"){
-
             previousImage();
-
         }
 
     }
 );
 
 
-/* =========================
-   MOBILE SWIPE
-========================= */
+/* MOBILE SWIPE */
 
 let touchStartX = 0;
 let touchEndX = 0;
@@ -1405,21 +1305,15 @@ function handleSwipe(){
     }
 
     if(difference > 0){
-
         nextImage();
-
     }else{
-
         previousImage();
-
     }
 
 }
 
 
-/* =========================
-   MUSIC
-========================= */
+/* MUSIC */
 
 const music =
     document.getElementById("backgroundMusic");
@@ -1467,9 +1361,6 @@ function startMusic(){
             })
             .catch(function(){
 
-                // Autoplay blocked by browser.
-                // It will start after user interaction.
-
             });
 
     }
@@ -1502,9 +1393,7 @@ function toggleMusic(){
 }
 
 
-/* =========================
-   AUTOPLAY
-========================= */
+/* AUTOPLAY */
 
 window.addEventListener(
     "load",
@@ -1517,11 +1406,8 @@ window.addEventListener(
 
 
 /*
-   iPhone / Safari may block
-   autoplay with sound.
-
-   The first tap/click on the page
-   will start the music.
+  لو المتصفح منع الـ autoplay،
+  أول ضغطة في الصفحة هتشغل الأغنية.
 */
 
 document.addEventListener(
@@ -1538,10 +1424,8 @@ document.addEventListener(
 );
 
 
-/* =========================
-   PREVENT MUSIC BUTTON
-   FROM TRIGGERING DOUBLE ACTION
-========================= */
+/* منع زر الموسيقى من تشغيل
+   الـ click العام مرتين */
 
 musicButton.addEventListener(
     "click",
