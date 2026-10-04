@@ -1,0 +1,1578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ZEKRA — Memory Gallery</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+    --bg:#f3eee6;
+    --paper:#faf7f1;
+    --dark:#29231f;
+    --muted:#81776d;
+    --gold:#a78b61;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:var(--bg);
+    color:var(--dark);
+    font-family:"DM Sans",sans-serif;
+    overflow-x:hidden;
+}
+
+button{
+    font-family:inherit;
+}
+
+img{
+    display:block;
+    max-width:100%;
+}
+
+
+/* =====================================================
+   MUSIC
+===================================================== */
+
+.music-button{
+    position:fixed;
+    right:25px;
+    bottom:25px;
+    width:52px;
+    height:52px;
+    border-radius:50%;
+    border:1px solid rgba(167,139,97,.55);
+    background:rgba(250,247,241,.92);
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+    color:var(--dark);
+    z-index:150;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:19px;
+    box-shadow:0 12px 35px rgba(41,35,31,.15);
+    transition:.35s ease;
+}
+
+.music-button:hover{
+    transform:scale(1.08);
+    background:#fff;
+}
+
+.music-button.playing{
+    animation:musicPulse 1.8s infinite;
+}
+
+.music-icon{
+    display:block;
+    line-height:1;
+}
+
+@keyframes musicPulse{
+    0%,100%{
+        box-shadow:
+            0 12px 35px rgba(41,35,31,.15),
+            0 0 0 0 rgba(167,139,97,.25);
+    }
+
+    50%{
+        box-shadow:
+            0 12px 35px rgba(41,35,31,.15),
+            0 0 0 10px rgba(167,139,97,0);
+    }
+}
+
+
+/* =====================================================
+   TOP BAR
+===================================================== */
+
+.topbar{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:75px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 5vw;
+    z-index:50;
+    mix-blend-mode:multiply;
+}
+
+.logo{
+    font-family:"Cormorant Garamond",serif;
+    font-size:30px;
+    letter-spacing:2px;
+}
+
+.topbar-right{
+    font-size:9px;
+    letter-spacing:3px;
+    color:var(--muted);
+}
+
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.hero{
+    min-height:100svh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:120px 20px 80px;
+    position:relative;
+}
+
+.hero-content{
+    max-width:700px;
+}
+
+.hero-small{
+    font-size:10px;
+    letter-spacing:5px;
+    color:var(--gold);
+    margin-bottom:25px;
+}
+
+.hero h1{
+    font-family:"Cormorant Garamond",serif;
+    font-size:clamp(65px,12vw,150px);
+    font-weight:400;
+    line-height:.72;
+    letter-spacing:-3px;
+}
+
+.hero-description{
+    margin-top:40px;
+    color:var(--muted);
+    font-size:13px;
+    line-height:1.8;
+}
+
+.scroll{
+    margin-top:55px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:12px;
+    color:var(--muted);
+    font-size:9px;
+    letter-spacing:3px;
+    text-transform:uppercase;
+}
+
+.scroll-line{
+    width:35px;
+    height:1px;
+    background:#b5aa9e;
+}
+
+
+/* =====================================================
+   GALLERY
+===================================================== */
+
+.gallery-section{
+    padding:100px 5vw 180px;
+}
+
+.gallery-intro{
+    display:flex;
+    justify-content:space-between;
+    align-items:end;
+    margin-bottom:100px;
+}
+
+.gallery-title{
+    font-family:"Cormorant Garamond",serif;
+    font-size:clamp(55px,7vw,100px);
+    font-weight:400;
+    line-height:.8;
+}
+
+.gallery-subtitle{
+    max-width:280px;
+    color:var(--muted);
+    font-size:12px;
+    line-height:1.8;
+}
+
+
+/* =====================================================
+   GALLERY WALL
+===================================================== */
+
+.gallery{
+    position:relative;
+    max-width:1250px;
+    margin:auto;
+    min-height:1450px;
+}
+
+
+/* =====================================================
+   PHOTO FRAME
+===================================================== */
+
+.gallery-item{
+    position:absolute;
+    cursor:pointer;
+    background:#fff;
+    padding:10px 10px 11px;
+
+    box-shadow:
+        0 25px 60px rgba(41,35,31,.12);
+
+    transition:
+        transform .6s cubic-bezier(.2,.7,.2,1),
+        box-shadow .4s ease;
+
+    will-change:transform;
+}
+
+.gallery-item:hover{
+    z-index:10;
+
+    transform:
+        translateY(-10px)
+        rotate(0deg)
+        scale(1.025);
+
+    box-shadow:
+        0 35px 80px rgba(41,35,31,.18);
+}
+
+.gallery-item img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+
+/* =====================================================
+   PHOTO POSITIONS
+===================================================== */
+
+.item-1{
+    width:360px;
+    height:470px;
+    left:4%;
+    top:0;
+    transform:rotate(-3deg);
+}
+
+.item-2{
+    width:300px;
+    height:390px;
+    right:8%;
+    top:80px;
+    transform:rotate(4deg);
+}
+
+.item-3{
+    width:430px;
+    height:330px;
+    left:31%;
+    top:430px;
+    transform:rotate(-1deg);
+}
+
+.item-4{
+    width:290px;
+    height:390px;
+    left:5%;
+    top:720px;
+    transform:rotate(3deg);
+}
+
+.item-5{
+    width:360px;
+    height:470px;
+    right:7%;
+    top:650px;
+    transform:rotate(-3deg);
+}
+
+.item-6{
+    width:330px;
+    height:430px;
+    left:38%;
+    top:970px;
+    transform:rotate(2deg);
+}
+
+
+/* =====================================================
+   PHOTO NUMBER
+===================================================== */
+
+.photo-number{
+    position:absolute;
+    bottom:-28px;
+    left:50%;
+    transform:translateX(-50%);
+
+    font-size:9px;
+    letter-spacing:3px;
+    color:var(--muted);
+}
+
+
+/* =====================================================
+   LIGHTBOX
+===================================================== */
+
+.lightbox{
+    position:fixed;
+    inset:0;
+    background:rgba(29,25,22,.96);
+
+    z-index:200;
+
+    display:none;
+    align-items:center;
+    justify-content:center;
+
+    padding:30px;
+}
+
+.lightbox.active{
+    display:flex;
+}
+
+.lightbox-image{
+    max-width:90vw;
+    max-height:82vh;
+
+    object-fit:contain;
+
+    box-shadow:
+        0 30px 100px rgba(0,0,0,.35);
+}
+
+
+/* =====================================================
+   LIGHTBOX TOP
+===================================================== */
+
+.lightbox-top{
+    position:absolute;
+    top:25px;
+    left:30px;
+    right:30px;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    color:white;
+    z-index:5;
+}
+
+.lightbox-counter{
+    font-size:10px;
+    letter-spacing:3px;
+    opacity:.7;
+}
+
+.close{
+    width:45px;
+    height:45px;
+
+    border:1px solid rgba(255,255,255,.3);
+    border-radius:50%;
+
+    background:transparent;
+    color:white;
+
+    cursor:pointer;
+    font-size:22px;
+
+    transition:.3s;
+}
+
+.close:hover{
+    background:white;
+    color:#222;
+}
+
+
+/* =====================================================
+   LIGHTBOX ARROWS
+===================================================== */
+
+.lightbox-arrow{
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+
+    width:55px;
+    height:55px;
+
+    border-radius:50%;
+    border:1px solid rgba(255,255,255,.25);
+
+    background:transparent;
+    color:white;
+
+    cursor:pointer;
+    font-size:22px;
+
+    transition:.3s;
+}
+
+.lightbox-arrow:hover{
+    background:white;
+    color:#222;
+}
+
+.prev{
+    left:30px;
+}
+
+.next{
+    right:30px;
+}
+
+
+/* =====================================================
+   TWO VIDEOS
+===================================================== */
+
+.video-section{
+    padding:100px 5vw 180px;
+}
+
+.video-grid{
+    width:min(1100px,100%);
+    margin:auto;
+
+    display:grid;
+    grid-template-columns:1fr 1fr;
+
+    gap:30px;
+}
+
+.video-frame{
+    background:#211d1a;
+    padding:10px;
+
+    box-shadow:
+        0 30px 80px rgba(41,35,31,.16);
+}
+
+.video-frame video{
+    display:block;
+
+    width:100%;
+    max-height:75vh;
+
+    object-fit:contain;
+
+    background:#211d1a;
+}
+
+
+/* =====================================================
+   NOTE
+===================================================== */
+
+.note-section{
+    padding:80px 20px 180px;
+
+    display:flex;
+    justify-content:center;
+}
+
+.note-card{
+    width:min(700px,100%);
+
+    background:var(--paper);
+
+    padding:
+        90px
+        clamp(30px,8vw,80px);
+
+    box-shadow:
+        0 30px 80px rgba(41,35,31,.1);
+
+    text-align:center;
+
+    position:relative;
+}
+
+.note-card::before{
+    content:"";
+
+    position:absolute;
+    top:25px;
+    left:50%;
+
+    transform:translateX(-50%);
+
+    width:45px;
+    height:1px;
+
+    background:var(--gold);
+}
+
+.note-label{
+    font-size:9px;
+    letter-spacing:4px;
+
+    color:var(--gold);
+
+    margin-bottom:25px;
+}
+
+.note-card h2{
+    font-family:"Cormorant Garamond",serif;
+
+    font-size:clamp(45px,6vw,65px);
+
+    font-weight:400;
+    line-height:.9;
+
+    margin-bottom:40px;
+}
+
+.note-text{
+    font-family:"Cormorant Garamond",serif;
+
+    font-size:25px;
+    line-height:1.6;
+
+    color:#514941;
+}
+
+.note-sign{
+    margin-top:40px;
+
+    font-size:9px;
+    letter-spacing:4px;
+
+    text-transform:uppercase;
+
+    color:var(--gold);
+}
+
+
+/* =====================================================
+   END
+===================================================== */
+
+.end{
+    min-height:70vh;
+
+    background:#29231f;
+    color:#f4eee6;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    text-align:center;
+
+    padding:80px 20px;
+}
+
+.end-small{
+    font-size:9px;
+    letter-spacing:5px;
+
+    color:#b8a78b;
+
+    margin-bottom:30px;
+}
+
+.end h2{
+    font-family:"Cormorant Garamond",serif;
+
+    font-size:clamp(85px,15vw,190px);
+
+    font-weight:400;
+    line-height:.7;
+}
+
+.end-line{
+    width:45px;
+    height:1px;
+
+    background:#a78b61;
+
+    margin:50px auto;
+}
+
+.end p{
+    color:#bdb5ae;
+
+    font-size:13px;
+    line-height:1.8;
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media(max-width:800px){
+
+    .topbar{
+        padding:0 25px;
+    }
+
+    .topbar-right{
+        display:none;
+    }
+
+    .hero{
+        padding-top:100px;
+    }
+
+    .hero h1{
+        font-size:70px;
+    }
+
+    .gallery-section{
+        padding-left:20px;
+        padding-right:20px;
+    }
+
+    .gallery-intro{
+        display:block;
+        margin-bottom:60px;
+    }
+
+    .gallery-subtitle{
+        margin-top:25px;
+    }
+
+    .gallery{
+        min-height:auto;
+
+        display:flex;
+        flex-direction:column;
+
+        gap:55px;
+    }
+
+    .gallery-item{
+        position:relative;
+
+        left:auto !important;
+        right:auto !important;
+        top:auto !important;
+
+        width:90% !important;
+        height:auto !important;
+
+        margin:auto;
+
+        transform:none !important;
+    }
+
+    .gallery-item:nth-child(even){
+        transform:rotate(1.5deg) !important;
+    }
+
+    .gallery-item:nth-child(odd){
+        transform:rotate(-1.5deg) !important;
+    }
+
+    .gallery-item img{
+        aspect-ratio:4/5;
+    }
+
+    .photo-number{
+        bottom:-25px;
+    }
+
+    .lightbox{
+        padding:15px;
+    }
+
+    .lightbox-image{
+        max-width:94vw;
+        max-height:75vh;
+    }
+
+    .prev{
+        left:15px;
+    }
+
+    .next{
+        right:15px;
+    }
+
+    .lightbox-arrow{
+        width:42px;
+        height:42px;
+    }
+
+    .video-section{
+        padding-left:20px;
+        padding-right:20px;
+    }
+
+    .video-grid{
+        grid-template-columns:1fr;
+        gap:25px;
+    }
+
+    .note-section{
+        padding-left:20px;
+        padding-right:20px;
+    }
+
+    .music-button{
+        width:48px;
+        height:48px;
+        right:18px;
+        bottom:18px;
+    }
+}
+
+
+/* =====================================================
+   SMALL MOBILE
+===================================================== */
+
+@media(max-width:480px){
+
+    .hero h1{
+        font-size:58px;
+        letter-spacing:-1px;
+    }
+
+    .hero-description{
+        font-size:12px;
+    }
+
+    .gallery-title{
+        font-size:65px;
+    }
+
+    .note-text{
+        font-size:23px;
+    }
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     MUSIC
+===================================================== -->
+
+<audio
+    id="backgroundMusic"
+    src="images/song.mp3"
+    loop
+    preload="auto"
+></audio>
+
+<button
+    class="music-button"
+    id="musicButton"
+    onclick="toggleMusic()"
+    aria-label="Music"
+>
+    <span class="music-icon" id="musicIcon">♪</span>
+</button>
+
+
+<!-- =====================================================
+     TOP BAR
+===================================================== -->
+
+<header class="topbar">
+
+    <div class="logo">
+        ZEKRA
+    </div>
+
+    <div class="topbar-right">
+        MEMORY GALLERY
+    </div>
+
+</header>
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <div class="hero-small">
+            A LITTLE COLLECTION OF MEMORIES
+        </div>
+
+        <h1>
+            Memories<br>
+            Kept Close.
+        </h1>
+
+        <p class="hero-description">
+            Six little moments.<br>
+            One beautiful collection.
+        </p>
+
+        <div class="scroll">
+
+            <span class="scroll-line"></span>
+
+            Enter the gallery
+
+            <span class="scroll-line"></span>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     GALLERY
+===================================================== -->
+
+<section class="gallery-section">
+
+    <div class="gallery-intro">
+
+        <div>
+
+            <div class="hero-small">
+                THE GALLERY
+            </div>
+
+            <h2 class="gallery-title">
+                Moments.
+            </h2>
+
+        </div>
+
+        <p class="gallery-subtitle">
+
+            A collection of moments,
+            familiar faces,
+            and memories worth keeping.
+
+        </p>
+
+    </div>
+
+
+    <div class="gallery">
+
+
+        <!-- PHOTO 1 -->
+
+        <div
+            class="gallery-item item-1"
+            onclick="openLightbox(0)"
+        >
+
+            <img
+                src="images/photo1.jpg"
+                alt="Memory 1"
+            >
+
+            <div class="photo-number">
+                01
+            </div>
+
+        </div>
+
+
+        <!-- PHOTO 2 -->
+
+        <div
+            class="gallery-item item-2"
+            onclick="openLightbox(1)"
+        >
+
+            <img
+                src="images/photo2.jpg"
+                alt="Memory 2"
+            >
+
+            <div class="photo-number">
+                02
+            </div>
+
+        </div>
+
+
+        <!-- PHOTO 3 -->
+
+        <div
+            class="gallery-item item-3"
+            onclick="openLightbox(2)"
+        >
+
+            <img
+                src="images/photo3.jpg"
+                alt="Memory 3"
+            >
+
+            <div class="photo-number">
+                03
+            </div>
+
+        </div>
+
+
+        <!-- PHOTO 4 -->
+
+        <div
+            class="gallery-item item-4"
+            onclick="openLightbox(3)"
+        >
+
+            <img
+                src="images/photo4.jpg"
+                alt="Memory 4"
+            >
+
+            <div class="photo-number">
+                04
+            </div>
+
+        </div>
+
+
+        <!-- PHOTO 5 -->
+
+        <div
+            class="gallery-item item-5"
+            onclick="openLightbox(4)"
+        >
+
+            <img
+                src="images/photo5.jpg"
+                alt="Memory 5"
+            >
+
+            <div class="photo-number">
+                05
+            </div>
+
+        </div>
+
+
+        <!-- PHOTO 6 -->
+
+        <div
+            class="gallery-item item-6"
+            onclick="openLightbox(5)"
+        >
+
+            <img
+                src="images/photo6.jpg"
+                alt="Memory 6"
+            >
+
+            <div class="photo-number">
+                06
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     LIGHTBOX
+===================================================== -->
+
+<div
+    class="lightbox"
+    id="lightbox"
+>
+
+    <div class="lightbox-top">
+
+        <div
+            class="lightbox-counter"
+            id="counter"
+        >
+            01 / 06
+        </div>
+
+        <button
+            class="close"
+            onclick="closeLightbox()"
+            aria-label="Close"
+        >
+            ×
+        </button>
+
+    </div>
+
+
+    <button
+        class="lightbox-arrow prev"
+        onclick="previousImage()"
+        aria-label="Previous"
+    >
+        ←
+    </button>
+
+
+    <img
+        class="lightbox-image"
+        id="lightboxImage"
+        src=""
+        alt="Memory"
+    >
+
+
+    <button
+        class="lightbox-arrow next"
+        onclick="nextImage()"
+        aria-label="Next"
+    >
+        →
+    </button>
+
+</div>
+
+
+<!-- =====================================================
+     TWO VIDEOS
+===================================================== -->
+
+<section class="video-section">
+
+    <div class="video-grid">
+
+
+        <!-- VIDEO 1 -->
+
+        <div class="video-frame">
+
+            <video
+                controls
+                playsinline
+                preload="metadata"
+                poster="images/photo4.jpg"
+            >
+
+                <source
+                    src="images/family-video1.mp4"
+                    type="video/mp4"
+                >
+
+                Your browser does not support video playback.
+
+            </video>
+
+        </div>
+
+
+        <!-- VIDEO 2 -->
+
+        <div class="video-frame">
+
+            <video
+                controls
+                playsinline
+                preload="metadata"
+                poster="images/photo5.jpg"
+            >
+
+                <source
+                    src="images/family-video2.mp4"
+                    type="video/mp4"
+                >
+
+                Your browser does not support video playback.
+
+            </video>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     NOTE
+===================================================== -->
+
+<section class="note-section">
+
+    <div class="note-card">
+
+        <div class="note-label">
+            A LITTLE NOTE
+        </div>
+
+        <h2>
+            From the heart.
+        </h2>
+
+        <!-- REPLACE THIS WITH THE CUSTOMER'S REAL NOTE -->
+
+        <p class="note-text">
+
+            Thank you for every moment,
+            every laugh,
+            and every beautiful memory
+            we've shared together.
+
+        </p>
+
+        <div class="note-sign">
+            With love
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     END
+===================================================== -->
+
+<section class="end">
+
+    <div>
+
+        <div class="end-small">
+            A MEMORY BY
+        </div>
+
+        <h2>
+            ZEKRA
+        </h2>
+
+        <div class="end-line"></div>
+
+        <p>
+            Some moments pass.<br>
+            Some stay with us.
+        </p>
+
+    </div>
+
+</section>
+
+
+<script>
+
+
+/* =====================================================
+   MUSIC
+===================================================== */
+
+const music =
+    document.getElementById("backgroundMusic");
+
+const musicButton =
+    document.getElementById("musicButton");
+
+const musicIcon =
+    document.getElementById("musicIcon");
+
+
+function updateMusicUI(){
+
+    if(!music.paused){
+
+        musicButton.classList.add("playing");
+
+        musicIcon.textContent = "♫";
+
+    }else{
+
+        musicButton.classList.remove("playing");
+
+        musicIcon.textContent = "♪";
+
+    }
+
+}
+
+
+/* =====================================================
+   PLAY MUSIC
+===================================================== */
+
+function startMusic(){
+
+    music.volume = 0.65;
+
+    const playPromise = music.play();
+
+    if(playPromise !== undefined){
+
+        playPromise
+            .then(function(){
+
+                updateMusicUI();
+
+            })
+            .catch(function(){
+
+                /*
+                    Some browsers block autoplay
+                    until the user interacts with
+                    the page.
+                */
+
+            });
+
+    }
+
+}
+
+
+/* =====================================================
+   TOGGLE MUSIC
+===================================================== */
+
+function toggleMusic(){
+
+    if(music.paused){
+
+        music.play()
+            .then(function(){
+
+                updateMusicUI();
+
+            })
+            .catch(function(){});
+
+    }else{
+
+        music.pause();
+
+        updateMusicUI();
+
+    }
+
+}
+
+
+/* =====================================================
+   AUTOPLAY
+===================================================== */
+
+window.addEventListener(
+    "load",
+    function(){
+
+        startMusic();
+
+    }
+);
+
+
+/*
+    If autoplay is blocked,
+    start the music automatically
+    after the first interaction.
+*/
+
+document.addEventListener(
+    "click",
+    function(){
+
+        if(music.paused){
+
+            startMusic();
+
+        }
+
+    },
+    {
+        once:false
+    }
+);
+
+
+/* =====================================================
+   GALLERY DATA
+===================================================== */
+
+const images = [
+
+    "images/photo1.jpg",
+    "images/photo2.jpg",
+    "images/photo3.jpg",
+    "images/photo4.jpg",
+    "images/photo5.jpg",
+    "images/photo6.jpg"
+
+];
+
+let currentImage = 0;
+
+
+/* =====================================================
+   OPEN LIGHTBOX
+===================================================== */
+
+function openLightbox(index){
+
+    currentImage = index;
+
+    const lightbox =
+        document.getElementById("lightbox");
+
+    const image =
+        document.getElementById("lightboxImage");
+
+    const counter =
+        document.getElementById("counter");
+
+    image.src =
+        images[currentImage];
+
+    counter.textContent =
+        String(currentImage + 1).padStart(2,"0")
+        + " / 06";
+
+    lightbox.classList.add("active");
+
+    document.body.style.overflow = "hidden";
+
+}
+
+
+/* =====================================================
+   CLOSE LIGHTBOX
+===================================================== */
+
+function closeLightbox(){
+
+    document
+        .getElementById("lightbox")
+        .classList.remove("active");
+
+    document.body.style.overflow = "";
+
+}
+
+
+/* =====================================================
+   NEXT
+===================================================== */
+
+function nextImage(){
+
+    currentImage++;
+
+    if(currentImage >= images.length){
+
+        currentImage = 0;
+
+    }
+
+    updateLightbox();
+
+}
+
+
+/* =====================================================
+   PREVIOUS
+===================================================== */
+
+function previousImage(){
+
+    currentImage--;
+
+    if(currentImage < 0){
+
+        currentImage =
+            images.length - 1;
+
+    }
+
+    updateLightbox();
+
+}
+
+
+/* =====================================================
+   UPDATE
+===================================================== */
+
+function updateLightbox(){
+
+    document
+        .getElementById("lightboxImage")
+        .src = images[currentImage];
+
+    document
+        .getElementById("counter")
+        .textContent =
+            String(currentImage + 1).padStart(2,"0")
+            + " / 06";
+
+}
+
+
+/* =====================================================
+   KEYBOARD
+===================================================== */
+
+document.addEventListener(
+
+    "keydown",
+
+    function(event){
+
+        if(event.key === "Escape"){
+
+            closeLightbox();
+
+        }
+
+        if(event.key === "ArrowRight"){
+
+            nextImage();
+
+        }
+
+        if(event.key === "ArrowLeft"){
+
+            previousImage();
+
+        }
+
+    }
+
+);
+
+
+/* =====================================================
+   CLICK OUTSIDE
+===================================================== */
+
+document
+    .getElementById("lightbox")
+    .addEventListener(
+
+        "click",
+
+        function(event){
+
+            if(event.target === this){
+
+                closeLightbox();
+
+            }
+
+        }
+
+    );
+
+
+/* =====================================================
+   MOBILE SWIPE
+===================================================== */
+
+let touchStartX = 0;
+let touchEndX = 0;
+
+
+document
+    .getElementById("lightbox")
+    .addEventListener(
+
+        "touchstart",
+
+        function(event){
+
+            touchStartX =
+                event.changedTouches[0].screenX;
+
+        }
+
+    );
+
+
+document
+    .getElementById("lightbox")
+    .addEventListener(
+
+        "touchend",
+
+        function(event){
+
+            touchEndX =
+                event.changedTouches[0].screenX;
+
+            handleSwipe();
+
+        }
+
+    );
+
+
+function handleSwipe(){
+
+    const distance =
+        touchEndX - touchStartX;
+
+    if(Math.abs(distance) < 50){
+
+        return;
+
+    }
+
+    if(distance < 0){
+
+        nextImage();
+
+    }else{
+
+        previousImage();
+
+    }
+
+}
+
+</script>
+
+</body>
+</html>
